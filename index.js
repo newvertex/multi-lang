@@ -12,21 +12,18 @@
  * }
  */
 
-// Current language.json file path
-let langFilePath = './lang.json';
-
-// Current selected language, will be used to pick a correct translations
-let currentLang = 'default';
+let config = {
+  filePath: './lang.json',
+  lang: 'default',
+  showError: true
+};
 
 // Keep all the translations on texts variable to have fast easy access
 // Use require instead of fs.readFile to load lang.json file
-let texts = require(langFilePath);
+let texts = require(config.filePath);
 
-// A flag to check if requested translation not exists return text with symbol
-// and output a console.error or not, just return original text
-let showError = true;
-
-function __(text, lang = currentLang) {
+function __(text, lang = config.lang) {
+  console.log(config.lang);
   // If on default language then return the same text no need to continue
   if (lang === 'default') {
     return text;
@@ -46,7 +43,7 @@ function __(text, lang = currentLang) {
     }
   } else {
     // If texts not available then it's not loaded, return original text
-    console.error(`Cant access to ${langFilePath}!`);
+    console.error(`Cant access to ${config.filePath}!`);
     return text;
   }
 
@@ -62,3 +59,6 @@ function __(text, lang = currentLang) {
     }
   }
 }
+
+module.exports = __;
+module.exports.config = config;
