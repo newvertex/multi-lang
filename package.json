@@ -1,0 +1,24 @@
+{
+  "name": "multi-lang",
+  "version": "0.0.1",
+  "description": "A simple module for Node.js to use equivalent translated string",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/newvertex/multi-lang.git"
+  },
+  "keywords": [
+    "multi",
+    "language",
+    "translate"
+  ],
+  "author": "Mojtaba Rabiei <mojtaba.r127@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/newvertex/multi-lang/issues"
+  },
+  "homepage": "https://github.com/newvertex/multi-lang#readme"
+}
