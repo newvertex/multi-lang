@@ -1,21 +1,4 @@
-const fs = require('fs');
-
-// Current language.json file path
-let langFilePath = './lang.json';
-
-// Current selected language, will be used to pick a correct translations
-let currentLang = 'default';
-
-// Keep all the translations on texts variable to have fast easy access
-let texts = null;
-
-// A flag to check if requested translation not exists return text with symbol
-// and output a console.error or not, just return original text
-let showError = true;
-
 /**
- * Read language.json file that's contain the list of all translations
- * `lang.json` file should have correct structure to work correct
  * e.g. lang.json:
  * {
  *   "Welcome": {
@@ -27,35 +10,21 @@ let showError = true;
  *     "fr": "Bonjour"
  *   }
  * }
- *
- * @method readLangFile
- * @return {Promise}     use promise.then(json) on call to get data
  */
-function readLangFile() {
-  return new Promise(function(resolve, reject) {
 
-    fs.readFile(langFilePath, {'encoding': 'utf8'}, (err, data) => {
-      if (err) {
-        if (err.code === 'ENOENT') {
-          return reject(new Error('lang.json file does not exists, Program will continue with default language'));
-        } else {
-          return reject(err);
-        }
-      }
+// Current language.json file path
+let langFilePath = './lang.json';
 
-      return resolve(JSON.parse(data));
-    });
-  });
-}
+// Current selected language, will be used to pick a correct translations
+let currentLang = 'default';
 
-// Read lang file on required
-readLangFile()
-  .then(json => {
-    texts = json;
-  })
-  .catch(err => {
-    console.log(err.message);
-  });
+// Keep all the translations on texts variable to have fast easy access
+// Use require instead of fs.readFile to load lang.json file
+let texts = require(langFilePath);
+
+// A flag to check if requested translation not exists return text with symbol
+// and output a console.error or not, just return original text
+let showError = true;
 
 function __(text, lang = currentLang) {
   // If on default language then return the same text no need to continue
@@ -76,8 +45,8 @@ function __(text, lang = currentLang) {
       result = t[lang];
     }
   } else {
-    // If texts not available then it's on loading, return original text
-    console.error('Loading translation, please refresh your call!');
+    // If texts not available then it's not loaded, return original text
+    console.error(`Cant access to ${langFilePath}!`);
     return text;
   }
 
