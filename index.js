@@ -10,7 +10,7 @@ module.exports = function(langFile = './lang.json') {
     showError: true
   };
 
-  const placeholderRegex = /%{\w+}%/g;
+  const placeholderRegex = /%{\w+}/g;
 
   function implant(text, data) {
     return text.replace(placeholderRegex, (item) => {

@@ -1,6 +1,6 @@
 {
   "name": "multi-lang",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "A simple module for Node.js to use equivalent translated string",
   "main": "index.js",
   "scripts": {
