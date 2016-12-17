@@ -15,6 +15,14 @@ console.log('Hello'); // output: Hello
 console.log(__('Hello')); // output: Hello
 
 console.log(__('Hello', 'fr')); // output: Bonjour
+
+__.config.lang = 'en';
+
+console.log(__('name-prompt')); // output: Enter your name please
+
+console.log(__('name-prompt', 'fa')); // output: لطفا نام خود را وارد نمایید
+
+console.log(__('name-prompt', 'fr')); // output: Entrez votre nom s'il vous plaît
 ```
 
 ### How to use
@@ -39,6 +47,11 @@ First of all you have to create a lang.json file to keep all translations on it.
 **A simple lang.json file:**
 ```json
 {
+  "name-prompt": {
+    "en": "Enter your name please",
+    "fa": "لطفا نام خود را وارد نمایید",
+    "fr": "Entrez votre nom s'il vous plaît"
+  },
   "Welcome": {
     "fa": "خوش آمدید",
     "fr": "Bienvenue"
