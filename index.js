@@ -10,39 +10,49 @@ module.exports = function(langFile = './lang.json') {
     showError: true
   };
 
-  module = function __(text, lang = config.lang) {
+  const placeholderRegex = /%{\w+}%/g;
+
+  function implant(text, data) {
+    return text.replace(placeholderRegex, (item) => {
+      return data[item.match(/%{(\w+)}/)[1]] || '';
+    });
+  }
+
+  module = function __(text, data = {}, lang = config.lang) {
+    // Check if data pass as string then use it as lang parameter
+    if (typeof data === 'string') {
+      lang = data;
+      data = {};
+    }
+
     // If on default language then return the same text no need to continue
     if (lang === 'default') {
-      return text;
+      // If data exists then replace data object with original text placeholder
+      return implant(text, data);
     }
 
     let result = null;
 
-    // If texts load correctly then can access to it's fields
-    if (texts) {
-      // Get current text translations
-      let t = texts[text];
+    // Get current text translations
+    let t = texts[text];
 
-      // If current text available then it's have all translations
-      if (typeof t !== 'undefined' && t) {
-        // Get selected language translation text
-        result = t[lang];
-      }
-    } else {
-      // If texts not available then it's not loaded, return original text
-      console.error(`Cant access to ${config.filePath}!`);
-      return text;
+    // If current text available then it's have all translations
+    if (typeof t !== 'undefined' && t) {
+      // Get selected language translation text
+      result = t[lang];
     }
 
     // If we have result then return it or return original text with error
     if (result) {
-      return result;
+      // If data exists replace data object with result text placeholder
+      return implant(result, data);
     } else {
       if (showError) {
-        console.error(`The requested translation not found!\nOriginal text: ${text}\nRequested lang: ${lang}`);
+        console.error(`The requested translation not found!\n
+          Original text: ${text}\nRequested lang: ${lang}\nData object: ${data}`);
         return '__' + text + '__';
       } else {
-        return text;
+        return text.replace(placeholderRegex, '');
       }
     }
   }
