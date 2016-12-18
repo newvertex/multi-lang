@@ -97,11 +97,16 @@ First of all you have to create a lang.json file to keep all translations on it.
 
 ### Importing
 You can use `__`(double underscore) to have simple access or any other name you like on loading module into your script like other node modules, you can pass language.json file as argument to module when importing it.  
+You can also set the default language and show error flag on this section.  
+**Note:** lang.json file path is relative to root of start script in project  
 
 ```js
 const __ = require('multi-lang')(); // Import module with default lang.json file
 
 const __ = require('multi-lang')('your-lang-file.json'); // Import module with your-lang-file.json file
+
+// Import module with your-lang-file.json file, set default lang to fa and set showError flag to false
+const __ = require('multi-lang')('your-lang-file.json', 'fa', false);
 
 ```
 **Note:** language file have to be a valid json file like above

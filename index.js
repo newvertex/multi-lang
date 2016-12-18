@@ -1,4 +1,4 @@
-module.exports = function(langFile = './lang.json') {
+module.exports = function(langFile = './lang.json', defaultLang = 'default', defaultShowError = true) {
   // Keep all the translations on texts variable to have fast easy access
   // Use require instead of fs.readFile to load lang.json file
   let texts = require(process.cwd() + '/' + langFile);
@@ -6,8 +6,8 @@ module.exports = function(langFile = './lang.json') {
   let module = null;
 
   let config = {
-    lang: 'default',
-    showError: true
+    lang: defaultLang,
+    showError: defaultShowError
   };
 
   const placeholderRegex = /%{\w+}/g;
