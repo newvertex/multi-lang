@@ -47,7 +47,7 @@ module.exports = function(langFile = './lang.json', defaultLang = 'default', def
       // If data exists replace data object with result text placeholder
       return implant(result, data);
     } else {
-      if (showError) {
+      if (config.showError) {
         console.error(`The requested translation not found!\n
           Original text: ${text}\nRequested lang: ${lang}\nData object: ${data}`);
         return '__' + text + '__';
